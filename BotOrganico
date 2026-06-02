@@ -1,0 +1,29 @@
+import discord, random,os
+from discord.ext import commands
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    # Tell the type checker that User is filled up at this point
+    assert bot.user is not None
+
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    print('------')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Olá! eu sou um bot {bot.user}!e hoje eu vou te ajudar a diminuir a poluicao no mundo')
+
+organicos: list[str] = ["banana,maca,pera,restos de comida"]
+
+@bot.command()
+async def lixo(ctx,resposta):
+    if resposta in organicos:
+        await ctx.send(f'jogue a/o {resposta} na lixeira marrom')
+
+
+bot.run("")
